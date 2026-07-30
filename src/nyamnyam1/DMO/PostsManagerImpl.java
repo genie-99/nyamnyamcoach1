@@ -20,7 +20,7 @@ public class PostsManagerImpl implements PostsManager {
 
 	private static List<Posts> postsList = new ArrayList<>();
 	private static Gson gson = new Gson();
-	Overall overall = Overall.getInstance();
+	//Overall overall = Overall.getInstance();
 
 	private PostsManagerImpl() {
 		loadData();
@@ -129,6 +129,9 @@ public class PostsManagerImpl implements PostsManager {
 
 		postsList.add(posts);
 		try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("community.json")))) {
+			 Overall overall = new Overall();
+			 overall.setPosts(postsList);
+			 
 			bw.write(gson.toJson(overall));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -143,6 +146,8 @@ public class PostsManagerImpl implements PostsManager {
 	public void saveData() {
 		System.out.println(postsList);
 		try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("community.json")))) {
+			Overall overall = new Overall();
+			 overall.setPosts(postsList);
 			bw.write(gson.toJson(overall));
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -5,10 +5,6 @@ import java.util.List;
 public class Overall {
 	public List<Posts> posts;
 	
-	public static Overall getInstance () {
-		return Instance;
-	}
-	private static Overall Instance = new Overall();
 	
 	public List<Posts> getPosts() {
 		return posts;
