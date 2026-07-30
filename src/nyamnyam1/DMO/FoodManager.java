@@ -13,7 +13,9 @@ import java.util.List;
 public class FoodManager {
 
     private Gson gson = new Gson();
-    private static List<Food> foodList;
+
+    private List<Food> foodList;
+
 
     public FoodManager(String jsonFilePath) {
         this.foodList = loadFoodData(jsonFilePath);
@@ -34,12 +36,29 @@ public class FoodManager {
         return foodList;
     }
 
+
+    //입력한 이름과 동일한 음식 가져오기
+    public List<String> getFoodNameAll(String foodname) {
+        List<String> names = new ArrayList<>();
+        for (int i = 0; i < foodList.size(); i++) {
+            if (foodList.get(i).getFoodName().contains(foodname)) {
+                names.add(foodList.get(i).getFoodName());
+            }
+        }
+        return names;
+    }
+
     public static void main(String[] args) {
         FoodManager manager = new FoodManager("data/foodData.json");
-        List<Food> foods = manager.getFoodList();
+        List<Food> foodList = manager.getFoodList();
 
         System.out.println("로드된 음식 개수: " + foodList.size());
         for (int i = 0; i < 10; i++)
             System.out.println((i + 1) + "번째 음식: " + foodList.get(i).getFoodName());
+
+        System.out.println(manager.getFoodNameAll("국밥"));
+        System.out.println(manager.getFoodList());
+
+
     }
 }

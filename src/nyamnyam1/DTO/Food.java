@@ -1,6 +1,11 @@
 package nyamnyam1.DTO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.reflect.Array.get;
+//import static nyamnyam1.DMO.FoodManager.foodlist;
 
 public class Food implements Serializable, Comparable<Food> {
 
@@ -25,6 +30,10 @@ public class Food implements Serializable, Comparable<Food> {
         this.glucide = glucide;
     }
 
+    public static int size() {
+        return 0;
+    }
+
 
     public String getFoodCode() {
         return foodCode;
@@ -37,6 +46,7 @@ public class Food implements Serializable, Comparable<Food> {
     public String getFoodName() {
         return foodName;
     }
+
 
     public void setFoodName(String foodName) {
         this.foodName = foodName;

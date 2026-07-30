@@ -103,4 +103,19 @@ public class MealPlanFood implements Serializable {
     public void setGetTotalCarbo(Double getTotalCarbo) {
         this.getTotalCarbo = getTotalCarbo;
     }
+
+    @Override
+    public String toString() {
+        return "MealPlanFood{" +
+                "mealPlanFoodId='" + mealPlanFoodId + '\'' +
+                ", mealPlanId='" + mealPlanId + '\'' +
+                ", foodCode='" + foodCode + '\'' +
+                ", foodName='" + foodName + '\'' +
+                ", amount=" + amount +
+                ", totalKcal=" + totalKcal +
+                ", totalFat=" + totalFat +
+                ", totalProtein=" + totalProtein +
+                ", getTotalCarbo=" + getTotalCarbo +
+                '}';
+    }
 }
