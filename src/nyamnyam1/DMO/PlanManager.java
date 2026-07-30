@@ -6,9 +6,9 @@ import nyamnyam1.DTO.Food;
 import nyamnyam1.DTO.MealPlan;
 import nyamnyam1.DTO.MealPlanFood;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,18 +55,42 @@ public class PlanManager {
         return eatenfoods;
     }
 
+    public void saveData(String jsonFilePath) {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(jsonFilePath)))) {
+            bw.write(gson.toJson(eatenfoods));
+            System.out.println("저장완료");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-//    public List<MealPlanFood> addFoodAtPlan() {
-//        for (Food food : foodList) {
-//            if (food.getFoodName().equals("카레라이스")) {
-//                MealPlanFood newFood = new MealPlanFood(
-//
-//                );
-//                eatenfoods.add(newFood);
-//            }
-//        }
-//        return eatenfoods;
-//    }
+    public List<MealPlanFood> addFoodAtPlan(String input, int amount) {
+        for (Food food : foodList) {
+            if (food.getFoodName().equals(input)) {
+                double ratio = amount / 100.0;
+
+                double kcal = (food.getEnergyKcal() != null) ? food.getEnergyKcal() : 0.0;
+                double fat = (food.getFat() != null) ? food.getFat() : 0.0;
+                double protein = (food.getProtein() != null) ? food.getProtein() : 0.0;
+                double carbo = (food.getCarbo() != null) ? food.getCarbo() : 0.0;
+
+                MealPlanFood newFood = new MealPlanFood(
+                        "MPF" + (eatenfoods.size() + 1),
+                        "TEMP_PLAN_ID",
+                        food.getFoodCode(),
+                        food.getFoodName(),
+                        amount,
+                        kcal * ratio,
+                        fat * ratio,
+                        protein * ratio,
+                        carbo * ratio
+                );
+                eatenfoods.add(newFood);
+            }
+        }
+        saveData("data/mealPlanFood.json");
+        return eatenfoods;
+    }
 
 
     public static void main(String[] args) {
@@ -84,7 +108,7 @@ public class PlanManager {
                     + ", 칼로리: " + eatenFoods.get(i).getTotalKcal());
 
         }
-        System.out.println(foodList);
+        manager.addFoodAtPlan("김밥_날치알", 3);
 
 
 
